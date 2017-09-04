@@ -1,18 +1,20 @@
 package listas;
 
+import java.io.IOException;
+
 import interfaz.Interfaz;
 import javafx.application.Application;
+import jsonreader.JsonReader;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 System.out.println("Hello");
 Doble_enlazada<String> hello= new Doble_enlazada<String>();
 hello.append("Hello");
-System.out.println(hello.head.objeto);
-System.out.println(hello.head);
-System.out.println(hello.buscar(1).get_objeto());
-Interfaz.inicia(args);
+Interfaz.inicia(null);
+//JsonReader.Read();
+
 	}
 
 }
