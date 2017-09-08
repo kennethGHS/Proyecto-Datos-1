@@ -24,6 +24,9 @@ public class Doble_enlazada<T> {
 			
 		}
 	}
+	public Nodos<T> gethead(){
+		return this.head;
+	}
 	public  Nodos<T> buscar(int indice) {
 		if (indice>largo) {
 			System.out.println("indice muy grande");

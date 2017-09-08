@@ -13,8 +13,8 @@ System.out.println("Hello");
 Doble_enlazada<String> hello= new Doble_enlazada<String>();
 hello.append("Hello");
 Interfaz.inicia(null);
-//JsonReader.Read();
-
+JsonReader.Read();
+Interfaz.creartabla();
 	}
 
 }
