@@ -15,6 +15,10 @@ hello.append("Hello");
 Interfaz.inicia(null);
 JsonReader.Read();
 Interfaz.creartabla();
+ListaDobleCircular<String> a = new ListaDobleCircular<String>();
+a.append("hola");
+a.append("cosas");
+System.out.println(a.buscar(2).objeto);
 	}
 
 }
