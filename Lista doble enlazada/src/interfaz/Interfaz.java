@@ -76,9 +76,9 @@ public class Interfaz extends Application {
 			System.out.println(lista.gethead().get_next().get_objeto());
 			
 		while(actual != null) {
-		
 		System.out.println(actual.get_objeto());
 		TableColumn nueva = new TableColumn(actual.get_objeto());
+		
 		table.getColumns().addAll(nueva);
 		actual= actual.get_next();
 		}

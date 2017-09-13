@@ -23,29 +23,30 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import listas.Doble_enlazada;
+import listas.Nodos;
 
 public class JsonReader {
 
 	public static void Read() throws JsonParseException, JsonMappingException, IOException  {
 		ObjectMapper mapper = new ObjectMapper();
         List<Meta> myObjects = mapper.readValue(jsonFile(), new TypeReference<List<Meta>>(){});
-        System.out.println(myObjects.get(1).colums.get(0));
-        JsonReader.filewriter(myObjects);
-        List<String> list = new ArrayList<String>(myObjects.get(1).colums.get(0).values());
-        System.out.println(list.get(1));
-        JsonReader.convert(myObjects);
-        
+        JsonReader.convert(myObjects);//despues de leer el meta data me lo escribe en una lista
+
     }
 
     private static File jsonFile() {
         return new File("src\\Data");
     }
-    public static void filewriter(List<Meta> lista) throws JsonGenerationException, JsonMappingException, IOException{
+    
+    
+    public static void filewriter(List<Meta> lista) throws JsonGenerationException, JsonMappingException, IOException{//crea un json de meta data
     	ObjectMapper mapper = new ObjectMapper();
-    	mapper.writeValue(new File("src\\Data2"), lista);
+    	mapper.writeValue(new File("src\\dATA2"), lista);
     	
     }
-		public static void convert(List<Meta> lista) {
+    
+    
+		public static void convert(List<Meta> lista) {//me mete los datos en el estatic metadata
 			Doble_enlazada<Meta> variable= DataLists.metadata;
 			int limite = lista.size();
 			int indice= 0;
@@ -54,12 +55,25 @@ public class JsonReader {
 				Meta variable2 = lista.get(indice);
 				variable.append(variable2);
 				indice++;
-				
 			}
-			System.out.println(DataLists.metadata.buscar(1).objeto.colums);
-			System.out.println("____________________________");
+		}
+		
+		
+		public static List<Meta> convertMeta(){//me convierte el meta data en un list
+			Doble_enlazada<Meta> metadata = DataLists.metadata;
+			Nodos<Meta> actual = metadata.gethead();
+			List<Meta> retornable = new ArrayList<Meta>();
+			while(actual!=null) {
+				retornable.add(actual.get_objeto());
+				actual= actual.get_next();
+			}
+			System.out.println(retornable);
+			return retornable;
 		}
 
+		public static void escribemeta() throws JsonGenerationException, JsonMappingException, IOException {
+		       JsonReader.filewriter( JsonReader.convertMeta());//me escribe el documento
+		}
 		
 	}
 

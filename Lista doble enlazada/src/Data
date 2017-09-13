@@ -1,1 +1,1 @@
-[{"name":"hola","colums":[{"Hola":"cosas"}]},{"name":"adgas","colums":[{"Hola":"cosas","mas":"lol"}]}]
+[{"name":"Estudiantes","colums":[{"Int":"nota","String":"DB","String2":"Curso"}]},{"name":"Profes","colums":[{"String":"LOLOL","String2":"Curso"}]}]

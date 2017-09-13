@@ -4,6 +4,7 @@ public class Doble_enlazada<T> {
 	Nodos<T> head;
 	Nodos<T> tail;
 	int largo;
+	String id;
 	public Doble_enlazada(){
 		this.head=null;
 		this.tail=null;

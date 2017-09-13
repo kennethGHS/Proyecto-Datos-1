@@ -4,9 +4,15 @@ public class ListaDobleCircular<T> {
 	Nodos<T> head;
 	Nodos<T> tail;
 	int largo;
+	String id;
 	public ListaDobleCircular(){
 		this.head=null;
 		this.tail=null;
+	}
+	public ListaDobleCircular(String id){
+		this.id= id;
+		this.head=null;
+		this.tail=null;	
 	}
 	public void append(T objeto){
 		Nodos<T> app= new Nodos<T>(objeto);
