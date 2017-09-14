@@ -11,6 +11,7 @@ import javafx.application.Application;
 import jsonreader.DataLists;
 import jsonreader.Instanciador;
 import jsonreader.JsonReader;
+import jsonreader.ListstoJson;
 import jsonreader.Meta;
 
 public class Main {
@@ -21,7 +22,7 @@ public class Main {
 //hello.append("Hello");
 Interfaz.inicia(null);
 JsonReader.Read();
-Interfaz.creartabla();
+//Interfaz.creartabla();
 //ListaDobleCircular<String> a = new ListaDobleCircular<String>();
 //a.append("hola");
 //a.append("cosas");
@@ -45,7 +46,8 @@ Interfaz.creartabla();
 //System.out.println(l.get(0));
 Instanciador.instanciador();
 System.out.println("_____________");
-DataLists.galerias.gethead().next.get_objeto().gethead().objeto.print();
+DataLists.galerias.gethead().get_objeto().gethead().objeto.print();
+ListstoJson.galleriesTojson();
 	}
 
 }

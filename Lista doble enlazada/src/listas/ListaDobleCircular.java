@@ -4,7 +4,7 @@ public class ListaDobleCircular<T> {
 	Nodos<T> head;
 	Nodos<T> tail;
 	int largo;
-	String id;
+	public String id;
 	public ListaDobleCircular(){
 		this.head=null;
 		this.tail=null;
@@ -37,19 +37,14 @@ public class ListaDobleCircular<T> {
 		return this.head;
 	}
 	public  Nodos<T> buscar(int indice) {
-		if (indice>largo) {
-			System.out.println("indice muy grande");
+		if(indice>largo) {
 			return null;
 		}
-		if(this.head==null) {
-			return null;}
-		int x = 1;
-		Nodos<T> nodo= this.head.get_next();
-		while(x!= largo) {
-			x++;
-			nodo=nodo.get_next();
+		Nodos<T> variable= this.head;
+		while(indice!=0) {
+			variable = variable.next;
 		}
-		return nodo;
+		return variable;
 	}
 
 	public void editar(int indice, T dato) {

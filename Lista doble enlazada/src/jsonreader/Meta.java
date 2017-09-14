@@ -11,5 +11,13 @@ public Meta() {
 	this.name=null;
 	this.colums=null;
 }
-
+public static  ArrayList<String> metalist(ArrayList<HashMap<String,String>> hashmap){
+	ArrayList<String> retornable = new ArrayList<String>();
+	int indice = 0;
+	while(indice!=hashmap.size()) {
+		retornable.add(hashmap.get(indice).get("nombre"));
+		indice++;
+	}
+	return retornable;
+}
 }

@@ -23,8 +23,8 @@ public class Instanciador {
 		Doble_enlazada<Meta> metadata = DataLists.metadata;
 		Nodos<Meta> nodo = metadata.gethead();
 		while (nodo!=null) {
-		List<String> L = new ArrayList<String>(nodo.get_objeto().colums.get(0).values());
-		Collections.reverse(L);
+		List<String> L = Meta.metalist(nodo.objeto.colums);
+		
 		Instanciador.ReadInstances(nodo.get_objeto().name, L);
 		System.out.println("my objeto es"+ nodo.get_objeto().colums);
 		nodo=nodo.get_next();

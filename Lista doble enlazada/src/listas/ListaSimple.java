@@ -69,5 +69,16 @@ public void print() {
 		System.out.println(actual.get_objeto());
 		actual=actual.get_next();
 	}
+
+		
+	}
+public  T getvalue(int indice) {
+	Nodos<T> actual=this.head;
+	while(indice!=0) {
+		actual=actual.next;
+		indice--;
+	}
+	return actual.objeto;
 }
 }
+

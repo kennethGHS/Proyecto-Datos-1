@@ -41,7 +41,7 @@ public class JsonReader {
     
     public static void filewriter(List<Meta> lista) throws JsonGenerationException, JsonMappingException, IOException{//crea un json de meta data
     	ObjectMapper mapper = new ObjectMapper();
-    	mapper.writeValue(new File("src\\dATA2"), lista);
+    	mapper.writeValue(new File("src\\Data"), lista);
     	
     }
     
