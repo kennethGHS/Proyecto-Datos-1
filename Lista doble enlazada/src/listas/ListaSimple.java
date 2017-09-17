@@ -3,7 +3,7 @@ package listas;
 public class ListaSimple<T> {
 	Nodos<T> head;
 	Nodos<T> tail;
-	int largo;
+	public int largo;
 	String identificador;
 	public ListaSimple(){
 		this.head=null;
@@ -15,6 +15,7 @@ public class ListaSimple<T> {
 		this.tail=null;	
 	}
 public void append(T objeto) {
+	largo++;
 	Nodos<T> nodo= new Nodos<>(objeto);
 	if(this.head==null) {
 		this.head= nodo;
@@ -74,10 +75,11 @@ public void print() {
 	}
 public  T getvalue(int indice) {
 	Nodos<T> actual=this.head;
-	while(indice!=0) {
+	while(indice!=0 && actual!=null) {
 		actual=actual.next;
 		indice--;
 	}
+	System.out.println("Hay algo mal");
 	return actual.objeto;
 }
 }

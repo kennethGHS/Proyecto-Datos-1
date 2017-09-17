@@ -15,6 +15,8 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,7 +42,15 @@ public class JsonReader {
     
     
     public static void filewriter(List<Meta> lista) throws JsonGenerationException, JsonMappingException, IOException{//crea un json de meta data
+    	DefaultPrettyPrinter.Indenter indenter = 
+		        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);
+		DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+		printer.indentObjectsWith(indenter);
+		printer.indentArraysWith(indenter);
+		
     	ObjectMapper mapper = new ObjectMapper();
+    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    	mapper.setDefaultPrettyPrinter(printer);
     	mapper.writeValue(new File("src\\Data"), lista);
     	
     }

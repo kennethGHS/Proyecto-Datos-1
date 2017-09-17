@@ -29,18 +29,10 @@ public class Doble_enlazada<T> {
 		return this.head;
 	}
 	public  Nodos<T> buscar(int indice) {
-		if (indice>largo) {
-			System.out.println("indice muy grande");
-			return null;
-		}
-		if(this.head==null) {
-			return null;
-		}
-		int x = 1;
-		Nodos<T> nodo= this.head;
-		while(x!= largo) {
-			x++;
+		Nodos<T> nodo =  this.head;
+		while(indice!=0) {
 			nodo=nodo.get_next();
+			indice--;
 		}
 		return nodo;
 		

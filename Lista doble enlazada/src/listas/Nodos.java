@@ -4,10 +4,13 @@ public class Nodos<T> {
 public T objeto;
 public Nodos<T> next;
 public Nodos<T> previo;
-public static int cantidad_nodos;
+public String id;
 public Nodos(T nombre){
 	this.objeto=nombre;
-	cantidad_nodos++;
+	this.id="";
+}
+public Nodos() {
+	// TODO Auto-generated constructor stub
 }
 public T get_objeto(){
 	return this.objeto;
@@ -26,6 +29,12 @@ public Nodos<T> get_previo(){
 }
 public void set_previo(Nodos<T> previo){
 	this.previo=previo;
+}
+public String getid() {
+	return this.id;
+}
+public void setid(String id) {
+	this.id  =id;
 }
 
 }

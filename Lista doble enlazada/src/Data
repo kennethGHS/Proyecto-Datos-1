@@ -1,1 +1,36 @@
-[{"name":"Estudiantes","colums":[{"Tipo":"Int","nombre":"nota"},{"Tipo":"String","nombre":"Curso"}]}]
+[
+    {
+        "name" : "Estudiantes",
+        "colums" : [
+            {
+                "Tipo" : "Int",
+                "nombre" : "nota"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "Curso"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "dato"
+            }
+        ]
+    },
+    {
+        "name" : "Profes",
+        "colums" : [
+            {
+                "Tipo" : "Int",
+                "nombre" : "cosa"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "cosa2"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "cosa3"
+            }
+        ]
+    }
+]

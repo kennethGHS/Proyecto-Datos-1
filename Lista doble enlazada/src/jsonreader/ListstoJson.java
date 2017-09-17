@@ -8,8 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import listas.Doble_enlazada;
 import listas.ListaDobleCircular;
@@ -49,9 +52,15 @@ public class ListstoJson {
 	}
 
 	private static void filewriter(String id, List<HashMap<String, String>> myObjects) throws JsonGenerationException, JsonMappingException, IOException {
-		   
+		DefaultPrettyPrinter.Indenter indenter = 
+		        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);
+		DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+		printer.indentObjectsWith(indenter);
+		printer.indentArraysWith(indenter);
 		    	ObjectMapper mapper = new ObjectMapper();
-		    	mapper.writeValue(new File("src\\"+id+"2"), myObjects);
+		    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		    	mapper.setDefaultPrettyPrinter(printer);
+		    	mapper.writeValue(new File("src\\"+id), myObjects);
 		    	
 		
 	}
@@ -59,7 +68,8 @@ public class ListstoJson {
 	private static void meterhashmap(List<HashMap<String, String>> myObjects, ListaSimple<String> variable,
 			ArrayList<String> buscadores) {
 		LinkedHashMap<String,String> hashmaps = new LinkedHashMap<>();
-		int indice = buscadores.size() -1 ;
+		int indice = variable.largo -1 ;
+		
 		while(indice!=-1) {
 			hashmaps.put(buscadores.get(indice), variable.getvalue(indice));
 			indice--;

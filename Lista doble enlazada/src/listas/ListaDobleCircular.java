@@ -19,6 +19,7 @@ public class ListaDobleCircular<T> {
 		if(this.head== null){
 			this.head=app;
 			this.tail=this.head;
+			this.head.next= this.head;
 			largo++;
 		}
 		else{

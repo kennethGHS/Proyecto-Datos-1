@@ -1,1 +1,22 @@
-[{"nota":"100","DB":"juan","Curso":"datos"},{"nota":34,"DB":"juan","Curso":"datos2"}]
+[
+    {
+        "nota" : "100",
+        "Curso" : "datos",
+        "dato" : "0"
+    },
+    {
+        "nota" : "34",
+        "Curso" : "datos2",
+        "dato" : "0"
+    },
+    {
+        "nota" : "234",
+        "Curso" : "espam",
+        "dato" : "0"
+    },
+    {
+        "nota" : "1000",
+        "Curso" : "datos666",
+        "dato" : "0"
+    }
+]
