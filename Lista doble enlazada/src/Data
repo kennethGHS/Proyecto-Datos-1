@@ -32,5 +32,30 @@
                 "nombre" : "cosa3"
             }
         ]
+    },
+    {
+        "name" : "Carros",
+        "colums" : [
+            {
+                "Tipo" : "Int",
+                "nombre" : "Placa"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "Dueno"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "Modelo"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "Tires"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "Semidueno"
+            }
+        ]
     }
 ]

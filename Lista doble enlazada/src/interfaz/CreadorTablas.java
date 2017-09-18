@@ -21,12 +21,37 @@ import listas.Nodos;
 public class CreadorTablas {
  
 	public static void creartabla(String nombre) throws InterruptedException {
+	
 	TableView<GenericObject> tabla = Interfaz2.nodo.get_objeto();
 	tabla.getColumns().clear();
 	ListaDobleCircular<ListaSimple<String>> lista = CreadorTablas.buscarlista(nombre);
 	List<String> colums =  CreadorTablas.atributelist(nombre);
 	CreadorTablas.creartabla2(colums,lista,tabla);
+	
 			}
+	public static void creartabladesdeArbol(String nombre) throws InterruptedException {
+		if(CreadorTablas.Validar(nombre)) {
+			AnadeObjetos.setclaseactual(nombre);
+		TableView<GenericObject> tabla = Interfaz2.nodo.get_objeto();
+		tabla.getColumns().clear();
+		ListaDobleCircular<ListaSimple<String>> lista = CreadorTablas.buscarlista(nombre);
+		List<String> colums =  CreadorTablas.atributelist(nombre);
+		CreadorTablas.creartabla2(colums,lista,tabla);
+		}
+		else {return;}
+				}
+
+	private static boolean Validar(String nombre) {
+	Nodos<Meta> nodo = DataLists.metadata.gethead();
+	
+	while(nodo!=null) {
+		if(nodo.get_objeto().name== nombre) {
+			return true;
+		}
+		nodo=nodo.next;
+	}
+	return false;
+	}
 
 	private static void creartabla2(List<String> colums, ListaDobleCircular<ListaSimple<String>> lista,
 		TableView<GenericObject> tabla) throws InterruptedException {
@@ -37,6 +62,10 @@ public class CreadorTablas {
 					ArrayList<String> list = new ArrayList<>();
 					Nodos<ListaSimple<String>> nodo = lista.gethead();
 					boolean repetido = true;
+					if(nodo==null) {//revisar papus
+						
+						return;
+					}
 					while( !nodo.equals(lista.gethead())  || repetido == true) {
 						repetido = false;
 						System.out.println(nodo.get_objeto().getvalue(indice));
@@ -49,6 +78,7 @@ public class CreadorTablas {
 					indice++;
 				}
 				CreadorTablas.metertablas(tabla , colums,CreadorTablas(list2));
+				
 	}
 
 	private static Collection<GenericObject> CreadorTablas(List<ArrayList<String>> list2) {
@@ -56,7 +86,7 @@ public class CreadorTablas {
 		int indicesuperior = 0 ;
 		while(indicesuperior!= list2.get(0).size()) {
 			int indice = 0 ;
-			GenericObject objeto= new GenericObject();
+			GenericObject objeto= new GenericObject(indicesuperior);
 			while(indice!= list2.size()) {
 				objeto.setatributo(list2.get(indice).get(indicesuperior), indice);
 				indice++;
@@ -72,6 +102,12 @@ public class CreadorTablas {
 	private static void metertablas(TableView<GenericObject> tabla, List<String> colums, Collection<GenericObject> collection) throws InterruptedException {
 		final ObservableList<GenericObject> details = FXCollections.observableArrayList(collection);
 		int indice=0;
+		if(tabla.getColumns().size()==0) {
+			TableColumn<GenericObject, String> col1 = new TableColumn<>("id");
+			
+			col1.setCellValueFactory(new PropertyValueFactory<>("id"));
+			tabla.getColumns().addAll(col1);
+		}
 	while(indice!= colums.size()) {
 		 TableColumn<GenericObject, String> col1 = new TableColumn<>(colums.get(indice));
 		
@@ -83,9 +119,29 @@ public class CreadorTablas {
         tabla.setItems(details);
        
 	}
+	@SuppressWarnings("unchecked")
+	private static void metertablasvacia(TableView<GenericObject> tabla, List<String> colums) throws InterruptedException {
+		
+		int indice=0;
+		if(tabla.getColumns().size()==0) {
+			TableColumn<GenericObject, String> col1 = new TableColumn<>("id");
+			
+			col1.setCellValueFactory(new PropertyValueFactory<>("id"));
+			tabla.getColumns().addAll(col1);
+		}
+	while(indice!= colums.size()) {
+		 TableColumn<GenericObject, String> col1 = new TableColumn<>(colums.get(indice));
+		
+		col1.setCellValueFactory(new PropertyValueFactory<>(GenericObject.get(indice)));
+		tabla.getColumns().addAll(col1);
+		indice++;
+		
+	}
+       
+	}
 
 	@SuppressWarnings("unused")
-	private static ListaDobleCircular<ListaSimple<String>> buscarlista(String nombre) {
+	public static ListaDobleCircular<ListaSimple<String>> buscarlista(String nombre) {
 		Nodos<ListaDobleCircular<ListaSimple<String>>> nodo = DataLists.galerias.gethead();
 		while(nodo!=null) {
 			if(nodo.get_objeto().id.equals(nombre) ) {

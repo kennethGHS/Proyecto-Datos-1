@@ -68,5 +68,15 @@ public class ListaDobleCircular<T> {
 		System.out.println(cosas.get_objeto());
 		cosas= cosas.get_next();
 		}
+		
+	}
+	public void borrar(int indice ) {
+		if(indice>= this.largo) {
+			return;
+		}
+		Nodos<T> nodo = this.head;
+		Nodos<T> head = nodo;
+		boolean inicio = false;
+		
 	}
 }

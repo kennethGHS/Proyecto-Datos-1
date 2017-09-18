@@ -40,15 +40,17 @@ public class ListstoJson {
 		 Nodos<ListaSimple<String>> nodo = objeto.gethead();
 		 Nodos<ListaSimple<String>> nodo2 = objeto.gethead();
 		 int condicion = 0;
+		 if (nodo!= null) {
 		 while(nodo!=nodo2 || condicion==0 ) {
 			 if (condicion ==0) {
 				 condicion++;
 			 }
-			 System.out.println("holaaquinoes");
 			 ListstoJson.meterhashmap(myObjects,nodo.get_objeto(),buscadores);
+			 
 			 nodo=nodo.get_next();
 		 }
-		 ListstoJson.filewriter(id,myObjects);
+		 ListstoJson.filewriter(id,myObjects);}
+		 
 	}
 
 	private static void filewriter(String id, List<HashMap<String, String>> myObjects) throws JsonGenerationException, JsonMappingException, IOException {
@@ -61,8 +63,6 @@ public class ListstoJson {
 		    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		    	mapper.setDefaultPrettyPrinter(printer);
 		    	mapper.writeValue(new File("src\\"+id), myObjects);
-		    	
-		
 	}
 
 	private static void meterhashmap(List<HashMap<String, String>> myObjects, ListaSimple<String> variable,

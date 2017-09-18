@@ -1,15 +1,20 @@
 package interfaz;
 
+import java.util.Optional;
+
 import com.sun.glass.events.MouseEvent;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
@@ -30,35 +35,56 @@ public class Interfaz2 extends Application {
 	public void start(Stage primaryStage2) throws InterruptedException {
 		
 		nodo.objeto = new TableView<GenericObject>();//genera una tabla que contiene objeto generico
-        
 		BorderPane borderpane = new BorderPane(); // panel
 		scene = new Scene(borderpane, 300, 200);
-		CreadorTablas.creartabla("Estudiantes");
 		borderpane.setCenter(nodo.objeto);//pone la tabla en el centro
-		CreadorTablas.creartabla("Profes");
-		
-
 		TreeCreator.CrearArbol(padre);
 		TreeView<String> tree = new TreeView<>(padre);// inicia el treeview
+//		TextInputDialog dialog = new TextInputDialog("walter");
+//		dialog.setTitle("Text Input Dialog");
+//		dialog.setHeaderText("Look, a Text Input Dialog");
+//		dialog.setContentText("Please enter your name:");
+//
+//		// Traditional way to get the response value.
+//		Optional<String> result = dialog.showAndWait();
+//		if (result.isPresent()){
+//		    System.out.println("Your name: " + result.get());
+//		}
+		Button boton3 = new Button("prueba");
+		boton3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	try {
+					AnadeObjetos.nuevoObjeto();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        });
+		borderpane.setTop(boton3);
 		tree.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
-
 	        @Override
 	        public void changed(@SuppressWarnings("rawtypes") ObservableValue observable, Object oldValue,
 	                Object newValue) {
 
 	            TreeItem<String> selectedItem = (TreeItem<String>) newValue;
-	            //meter accion
-	            
+	          try {
+				CreadorTablas.creartabladesdeArbol(selectedItem.getValue());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	           // selectedItem.getValue()
 	        }
 	      });
 		borderpane.setLeft(tree);
 		primaryStage=primaryStage2;
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("LinkedDB");
-		primaryStage.setWidth(1200);
-		primaryStage.setHeight(1000);
+		primaryStage.setWidth(1000);
+		primaryStage.setHeight(900);
 		primaryStage.setScene(scene);
-		
 		primaryStage.show();
 	}
 

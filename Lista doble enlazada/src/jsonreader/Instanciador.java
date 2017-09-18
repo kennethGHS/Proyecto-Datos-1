@@ -1,6 +1,7 @@
 package jsonreader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,10 +9,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import listas.Doble_enlazada;
 import listas.ListaDobleCircular;
@@ -33,8 +38,13 @@ public class Instanciador {
 	private static void ReadInstances( String id, List<String> keys) throws JsonParseException, JsonMappingException, IOException  {
 		ObjectMapper mapper = new ObjectMapper();
 		String dato = "src\\"+ id;
+		try {
 		List<HashMap<String,String>> myObjects = mapper.readValue(new File(dato), new TypeReference<List<HashMap<String,String>>>(){});
-		Instanciador.ReadInstances2(id, keys, myObjects);
+		Instanciador.ReadInstances2(id, keys, myObjects);}
+		catch(FileNotFoundException excepcion ) {
+			Instanciador.documentovacio(id);
+			return;
+		}
     }
 	private static void ReadInstances2(String id, List<String> keys,List<HashMap<String,String>> instancias) {
 		ListaDobleCircular<ListaSimple<String>> lista = new ListaDobleCircular<>(id);
@@ -56,5 +66,17 @@ public class Instanciador {
 		}
 		lista.append(instancia);
 	}
-
+private static void documentovacio(String documento) throws JsonGenerationException, JsonMappingException, IOException {
+	DefaultPrettyPrinter.Indenter indenter = 
+	        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);
+	DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+	printer.indentObjectsWith(indenter);
+	printer.indentArraysWith(indenter);
+	    	ObjectMapper mapper = new ObjectMapper();
+	    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
+	    	mapper.setDefaultPrettyPrinter(printer);
+	    	List<HashMap<String,String>> myObjects = new ArrayList<>();
+			mapper.writeValue(new File("src\\"+documento), myObjects);
+	
+}
 }
