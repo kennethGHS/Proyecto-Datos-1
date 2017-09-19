@@ -1,7 +1,7 @@
 package listas;
 
 public class ListaSimple<T> {
-	Nodos<T> head;
+	public Nodos<T> head;
 	Nodos<T> tail;
 	public int largo;
 	String identificador;
@@ -79,7 +79,7 @@ public  T getvalue(int indice) {
 		actual=actual.next;
 		indice--;
 	}
-	System.out.println("Hay algo mal");
+
 	return actual.objeto;
 }
 }

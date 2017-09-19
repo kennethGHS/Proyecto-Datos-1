@@ -44,6 +44,7 @@ public class ListaDobleCircular<T> {
 		Nodos<T> variable= this.head;
 		while(indice!=0) {
 			variable = variable.next;
+			indice--;
 		}
 		return variable;
 	}
@@ -75,8 +76,59 @@ public class ListaDobleCircular<T> {
 			return;
 		}
 		Nodos<T> nodo = this.head;
-		Nodos<T> head = nodo;
-		boolean inicio = false;
+		if(this.head== null) {
+			return;
+		}
+		while(indice!=0) {
+		 nodo = nodo.next;
+			indice--;
+		}
+		if(nodo.next==nodo && nodo == this.head) {
+			this.largo--;
+			this.head = null;
+			this.tail = null;
+			return;
+		}
+		if( nodo == this.head && this.head.get_next()!=null) {
+			this.largo--;
+			nodo.get_next().set_previo(nodo.get_previo());
+			nodo.get_previo().set_next(nodo.next);
+			this.head= nodo.next;
+			return;
+		}
+		if( nodo == this.tail ) {
+			this.largo--;
+			nodo.get_next().set_previo(nodo.get_previo());
+			nodo.get_previo().set_next(nodo.next);
+			this.tail= nodo.get_previo();
+			return;
 		
+		}
+		else {
+			System.out.println("entre");
+			this.largo--;
+			nodo.get_next().set_previo(nodo.get_previo());
+			nodo.get_previo().set_next(nodo.next);
+			return;
+		}
+		}
+	public static void pruebas() {
+		ListaDobleCircular<String> lista = new ListaDobleCircular<>();
+		lista.append("cosas");
+		lista.append("cosasss");
+		lista.append("Nuevo");
+		lista.append("cosas");
+		lista.append("231");
+		lista.append("cosasmas");
+		lista.borrar(5);
+		lista.borrar(0);
+		lista.borrar(2);
+		
+	
+		System.out.println(lista.tail.objeto + "this is tail");
+		System.out.println(lista.head.objeto+"this is head");
+		//lista.print();
+		
+
 	}
 }

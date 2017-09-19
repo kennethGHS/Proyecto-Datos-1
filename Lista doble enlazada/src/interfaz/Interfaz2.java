@@ -50,19 +50,17 @@ public class Interfaz2 extends Application {
 //		if (result.isPresent()){
 //		    System.out.println("Your name: " + result.get());
 //		}
+		Button boton2 = new Button("pruebaedit");
+		SetActions.seteditbutton(boton2);
 		Button boton3 = new Button("prueba");
-		boton3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	try {
-					AnadeObjetos.nuevoObjeto();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });
-		borderpane.setTop(boton3);
+		SetActions.setaddButton(boton3);
+		
+		Button boton = new Button("preuebaeliminar");
+		SetActions.setdeleteButton(boton);
+		VBox right = new VBox();
+		right.getChildren().addAll(boton3,boton,boton2);
+		
+		borderpane.setTop(right);
 		tree.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
 	        @Override
 	        public void changed(@SuppressWarnings("rawtypes") ObservableValue observable, Object oldValue,

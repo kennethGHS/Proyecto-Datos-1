@@ -57,5 +57,30 @@
                 "nombre" : "Semidueno"
             }
         ]
+    },
+    {
+        "name" : "Juanito",
+        "colums" : [
+            {
+                "Tipo" : "Int",
+                "nombre" : "1112w"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "233"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "5yhf"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "24ersd"
+            },
+            {
+                "Tipo" : "String",
+                "nombre" : "der34"
+            }
+        ]
     }
 ]

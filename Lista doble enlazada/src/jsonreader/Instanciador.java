@@ -70,6 +70,8 @@ private static void documentovacio(String documento) throws JsonGenerationExcept
 	DefaultPrettyPrinter.Indenter indenter = 
 	        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);
 	DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+	Doble_enlazada<ListaDobleCircular<ListaSimple<String>>> galerias = DataLists.galerias;
+	galerias.append(new ListaDobleCircular<ListaSimple<String>>(documento));
 	printer.indentObjectsWith(indenter);
 	printer.indentArraysWith(indenter);
 	    	ObjectMapper mapper = new ObjectMapper();

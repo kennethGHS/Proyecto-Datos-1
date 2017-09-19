@@ -31,7 +31,7 @@ public class CreadorTablas {
 			}
 	public static void creartabladesdeArbol(String nombre) throws InterruptedException {
 		if(CreadorTablas.Validar(nombre)) {
-			AnadeObjetos.setclaseactual(nombre);
+			ManejaObjetos.setclaseactual(nombre);
 		TableView<GenericObject> tabla = Interfaz2.nodo.get_objeto();
 		tabla.getColumns().clear();
 		ListaDobleCircular<ListaSimple<String>> lista = CreadorTablas.buscarlista(nombre);
@@ -154,6 +154,7 @@ public class CreadorTablas {
 		}
 		return null;
 	}
+	
 	public static List<String> atributelist(String nombre){
 		
 		Nodos<Meta> nodo  =DataLists.metadata.gethead();
