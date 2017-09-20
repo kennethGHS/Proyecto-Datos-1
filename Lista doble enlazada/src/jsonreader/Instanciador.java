@@ -22,8 +22,18 @@ import listas.Doble_enlazada;
 import listas.ListaDobleCircular;
 import listas.ListaSimple;
 import listas.Nodos;
-
+/**
+ * Clase que me lee los objetos de los Json
+ * @author kenneth
+ *
+ */
 public class Instanciador {
+	/**
+	 * Crea las instancias segun cada archivo
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	public static void instanciador() throws JsonParseException, JsonMappingException, IOException {
 		Doble_enlazada<Meta> metadata = DataLists.metadata;
 		Nodos<Meta> nodo = metadata.gethead();
@@ -35,6 +45,14 @@ public class Instanciador {
 		nodo=nodo.get_next();
 		}
 	}
+	/**
+	 * Me lee las intacias
+	 * @param id nombre de la clase a leer
+	 * @param keys lista de lso atributos
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	private static void ReadInstances( String id, List<String> keys) throws JsonParseException, JsonMappingException, IOException  {
 		ObjectMapper mapper = new ObjectMapper();
 		String dato = "src\\"+ id;
@@ -46,6 +64,12 @@ public class Instanciador {
 			return;
 		}
     }
+	/**
+	 * Esta ya me crea la lista cicular la cual sera metida en la metadata
+	 * @param id
+	 * @param keys
+	 * @param instancias
+	 */
 	private static void ReadInstances2(String id, List<String> keys,List<HashMap<String,String>> instancias) {
 		ListaDobleCircular<ListaSimple<String>> lista = new ListaDobleCircular<>(id);
 		int indice = 0;
@@ -56,6 +80,12 @@ public class Instanciador {
 		}
 	 DataLists.galerias.append(lista);;
 	}
+	/**
+	 * Este es el que agarra ya las listas descompuestas y mete el hashmap creado e una lista previamente hecha
+	 * @param hashMap
+	 * @param keys
+	 * @param lista
+	 */
 	private static void intanciaFinal(HashMap<String, String> hashMap, List<String> keys, ListaDobleCircular<ListaSimple<String>> lista) {
 		ListaSimple<String> instancia= new ListaSimple<>();
 		int indice=0;
@@ -66,6 +96,13 @@ public class Instanciador {
 		}
 		lista.append(instancia);
 	}
+	/**
+	 * Esta lo que hace es que si no encuentra el documento de una clase me crea una vacia.
+	 * @param documento nombre del documento a crear
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 private static void documentovacio(String documento) throws JsonGenerationException, JsonMappingException, IOException {
 	DefaultPrettyPrinter.Indenter indenter = 
 	        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);

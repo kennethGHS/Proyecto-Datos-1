@@ -8,7 +8,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
-
+/**
+ * Clase que genera las acciones de los botones
+ * @author kenneth
+ *
+ */
 public class SetActions {
 public static void setaddButton(Button boton) {
 	boton.setOnAction(new EventHandler<ActionEvent>() {
@@ -22,6 +26,10 @@ public static void setaddButton(Button boton) {
         }
     });
 }
+/**
+ * Da el evento de eliminar a un boton
+ * @param boton
+ */
 public static void setdeleteButton(Button boton) {
 	boton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
@@ -49,6 +57,10 @@ public static void setdeleteButton(Button boton) {
         }
     });
 }
+/**
+ * Da evento de edicion a un boton
+ * @param boton
+ */
 public static void seteditbutton(Button boton) {
 	boton.setOnAction(new EventHandler<ActionEvent>() {
         @Override

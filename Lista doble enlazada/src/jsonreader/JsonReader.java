@@ -26,7 +26,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import listas.Doble_enlazada;
 import listas.Nodos;
-
+/**
+ * Clase que lee metadata
+ * @author kenneth
+ *
+ */
 public class JsonReader {
 
 	public static void Read() throws JsonParseException, JsonMappingException, IOException  {
@@ -35,12 +39,21 @@ public class JsonReader {
         JsonReader.convert(myObjects);//despues de leer el meta data me lo escribe en una lista
 
     }
-
+/**
+ * retorna el file data
+ * @return
+ */
     private static File jsonFile() {
         return new File("src\\Data");
     }
     
-    
+    /**
+     * Escribe el metadata
+     * @param lista
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     public static void filewriter(List<Meta> lista) throws JsonGenerationException, JsonMappingException, IOException{//crea un json de meta data
     	DefaultPrettyPrinter.Indenter indenter = 
 		        new DefaultIndenter("    ", DefaultIndenter.SYS_LF);
@@ -54,21 +67,27 @@ public class JsonReader {
     	mapper.writeValue(new File("src\\Data"), lista);
     	
     }
-    
+    /**
+     * Convierte a lista leida en una lista propia dobke enlazada
+     * @param lista
+     */
     
 		public static void convert(List<Meta> lista) {//me mete los datos en el estatic metadata
 			Doble_enlazada<Meta> variable= DataLists.metadata;
 			int limite = lista.size();
 			int indice= 0;
 			while(limite!=indice) {
-				System.out.println(lista.get(indice));
+//				System.out.println(lista.get(indice));
 				Meta variable2 = lista.get(indice);
 				variable.append(variable2);
 				indice++;
 			}
 		}
 		
-		
+		/**
+		 * Convierte el metadata en un list
+		 * @return
+		 */
 		public static List<Meta> convertMeta(){//me convierte el meta data en un list
 			Doble_enlazada<Meta> metadata = DataLists.metadata;
 			Nodos<Meta> actual = metadata.gethead();
@@ -80,7 +99,12 @@ public class JsonReader {
 			System.out.println(retornable);
 			return retornable;
 		}
-
+/**
+ * Escribe finalmente el meta
+ * @throws JsonGenerationException
+ * @throws JsonMappingException
+ * @throws IOException
+ */
 		public static void escribemeta() throws JsonGenerationException, JsonMappingException, IOException {
 		       JsonReader.filewriter( JsonReader.convertMeta());//me escribe el documento
 		}

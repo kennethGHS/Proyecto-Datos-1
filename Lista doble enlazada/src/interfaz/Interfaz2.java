@@ -23,7 +23,11 @@ import javafx.stage.Stage;
 import listas.GenericObject;
 import listas.ListaSimple;
 import listas.Nodos;
-
+/**
+ * Ventana
+ * @author kenneth
+ *
+ */
 public class Interfaz2 extends Application {
 	public static TreeItem<String> padre = new TreeItem<>("Galleries");
 	public static Scene scene;
@@ -32,6 +36,9 @@ public class Interfaz2 extends Application {
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	/**
+	 * Metodo que inicializa la interfaz
+	 */
 	public void start(Stage primaryStage2) throws InterruptedException {
 		
 		nodo.objeto = new TableView<GenericObject>();//genera una tabla que contiene objeto generico
@@ -50,12 +57,12 @@ public class Interfaz2 extends Application {
 //		if (result.isPresent()){
 //		    System.out.println("Your name: " + result.get());
 //		}
-		Button boton2 = new Button("pruebaedit");
+		Button boton2 = new Button("Editar");
 		SetActions.seteditbutton(boton2);
-		Button boton3 = new Button("prueba");
+		Button boton3 = new Button("Anadir");
 		SetActions.setaddButton(boton3);
 		
-		Button boton = new Button("preuebaeliminar");
+		Button boton = new Button("Eliminar");
 		SetActions.setdeleteButton(boton);
 		VBox right = new VBox();
 		right.getChildren().addAll(boton3,boton,boton2);

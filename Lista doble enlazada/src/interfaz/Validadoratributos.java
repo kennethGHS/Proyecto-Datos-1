@@ -20,7 +20,11 @@ public class Validadoratributos {
 		}
 		else {return false;}
 	}
-
+/**
+ * Valida si el dato es un float
+ * @param dato
+ * @return
+ */
 	private static boolean validarFloat(String dato) {
 		try {
 			Float.parseFloat(dato);
@@ -29,7 +33,11 @@ public class Validadoratributos {
 			return false;
 		}
 	}
-
+/**
+ * Valida que sea un string
+ * @param dato
+ * @return
+ */
 	private static boolean validarString(String dato) {
 		try {
 			if(dato.contains("/") || dato.contains(":")) {
@@ -40,7 +48,11 @@ public class Validadoratributos {
 		}catch(Exception e) {return true;}
 		
 	}
-
+/**
+ * Validador de String a int
+ * @param dato
+ * @return
+ */
 	private static boolean validadorint(String dato) {
 		try {
 			Integer.parseInt(dato);

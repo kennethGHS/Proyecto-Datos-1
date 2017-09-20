@@ -1,9 +1,14 @@
 package listas;
-
+/**
+ * Lista doble circular
+ * @author kenneth
+ *
+ * @param <T>
+ */
 public class ListaDobleCircular<T> {
 	Nodos<T> head;
 	Nodos<T> tail;
-	int largo;
+	public int largo = 0;
 	public String id;
 	public ListaDobleCircular(){
 		this.head=null;
@@ -112,23 +117,5 @@ public class ListaDobleCircular<T> {
 			return;
 		}
 		}
-	public static void pruebas() {
-		ListaDobleCircular<String> lista = new ListaDobleCircular<>();
-		lista.append("cosas");
-		lista.append("cosasss");
-		lista.append("Nuevo");
-		lista.append("cosas");
-		lista.append("231");
-		lista.append("cosasmas");
-		lista.borrar(5);
-		lista.borrar(0);
-		lista.borrar(2);
-		
-	
-		System.out.println(lista.tail.objeto + "this is tail");
-		System.out.println(lista.head.objeto+"this is head");
-		//lista.print();
-		
 
-	}
 }

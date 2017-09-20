@@ -1,7 +1,11 @@
 package listas;
 
 import javafx.beans.property.SimpleStringProperty;
-
+/**
+ * Objeto generico para columnas
+ * @author kenneth
+ *
+ */
 public class GenericObject {
 private SimpleStringProperty atributo;
 private SimpleStringProperty atributo1;

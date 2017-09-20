@@ -1,5 +1,10 @@
 package listas;
-
+/**
+ * Lista DOblemente emlazada
+ * @author kenneth
+ *
+ * @param <T>
+ */
 public class Doble_enlazada<T> {
 	Nodos<T> head;
 	Nodos<T> tail;

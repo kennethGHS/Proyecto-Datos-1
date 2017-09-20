@@ -12,9 +12,17 @@ import listas.Doble_enlazada;
 import listas.ListaDobleCircular;
 import listas.ListaSimple;
 import listas.Nodos;
-
+/**
+ * Maneja las acciones que se ejecutan en la interfaz y el database, las conecciones y mantener actualizado
+ * @author kenneth
+ *
+ */
 public class ManejaObjetos {
 	public static String claseactual ="";
+	/**
+	 * Metodo que actualiza la lista cada vez que se cambia de objeto
+	 * @throws InterruptedException
+	 */
 public static void nuevoObjeto() throws InterruptedException {
 	if(claseactual=="") {
 		return;
@@ -34,6 +42,13 @@ public static void nuevoObjeto() throws InterruptedException {
 	galeria.append(lista);
 	CreadorTablas.creartabla(claseactual);
 }
+/**
+ * Menu para crear una nueva instancia de un objeto en especifico desde la interfaz
+ * @param galeria
+ * @param hashMap del cual saldran los nombres
+ * @param lista simple la cual sera andadida al final
+ * @return
+ */
 private static boolean crearnuevaisntancia(ListaDobleCircular<ListaSimple<String>> galeria,
 		HashMap<String, String> hashMap, ListaSimple<String> lista) {
 	boolean repetido = true;
@@ -63,17 +78,36 @@ private static boolean crearnuevaisntancia(ListaDobleCircular<ListaSimple<String
 static public void setclaseactual(String clase) {
 	claseactual = clase;
 }
+/**
+ * Elimina el objeto por el id del cual se encuentra el objeto en la lista
+ * @param id
+ * @throws InterruptedException
+ */
 static public void eliminarobjetos(int id) throws InterruptedException {
 	ListaDobleCircular<ListaSimple<String>> lista =DataLists.sacaCircular(claseactual);
 	lista.borrar(id);
 	CreadorTablas.creartabla(claseactual);
 }
+/**
+ * Recibe el id de un objeto en tabla y lo edita.
+ * @param id
+ * @throws InterruptedException
+ */
 static public void editarobjetos(int id) throws InterruptedException {
 	ListaDobleCircular<ListaSimple<String>> lista =DataLists.sacaCircular(claseactual);
+	if(lista.largo<=id) {
+		return;
+	}
 	ListaSimple<String> objetos = lista.buscar(id).get_objeto();
 	ArrayList<HashMap<String, String>> atributos = Meta.sacaListaMeta(claseactual);
 	ManejaObjetos.editor(objetos,atributos);
 }
+/**
+ * Edita una instancia
+ * @param objetos
+ * @param atributos
+ * @throws InterruptedException
+ */
 private static void editor(ListaSimple<String> objetos, ArrayList<HashMap<String, String>> atributos) throws InterruptedException {
 	int indice = 0;
 	Nodos<String> nodo = objetos.head;

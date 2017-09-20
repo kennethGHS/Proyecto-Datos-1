@@ -19,7 +19,12 @@ import listas.ListaSimple;
 import listas.Nodos;
 
 public class CreadorTablas {
- 
+ /**
+  * Lo que hace esta es limpiar toda las tablas y genera las columnas y todo lo necesario para crear
+  * una tabla
+  * @param nombre es el nombre de alguna lista que tiene ID
+  * @throws InterruptedException
+  */
 	public static void creartabla(String nombre) throws InterruptedException {
 	
 	TableView<GenericObject> tabla = Interfaz2.nodo.get_objeto();
@@ -29,6 +34,11 @@ public class CreadorTablas {
 	CreadorTablas.creartabla2(colums,lista,tabla);
 	
 			}
+	/**
+	 * Este metedo es espacial para recibir los datos del arbol y validar si este existe
+	 * @param nombre nombre de la gallerie que se quiere ver
+	 * @throws InterruptedException
+	 */
 	public static void creartabladesdeArbol(String nombre) throws InterruptedException {
 		if(CreadorTablas.Validar(nombre)) {
 			ManejaObjetos.setclaseactual(nombre);
@@ -40,7 +50,11 @@ public class CreadorTablas {
 		}
 		else {return;}
 				}
-
+/**
+ * Validacion del nombre recivido en creartablasdearbol
+ * @param nombre
+ * @return
+ */
 	private static boolean Validar(String nombre) {
 	Nodos<Meta> nodo = DataLists.metadata.gethead();
 	
@@ -52,7 +66,13 @@ public class CreadorTablas {
 	}
 	return false;
 	}
-
+/**
+ * uno de los metodos que se usa para la creacion de tablas, convierte listas simples dentro de una circular a una simple
+ * @param colums columnas de atributos
+ * @param lista lista de la cual salen los datos
+ * @param tabla es la tabla a la cual se anadira
+ * @throws InterruptedException
+ */
 	private static void creartabla2(List<String> colums, ListaDobleCircular<ListaSimple<String>> lista,
 		TableView<GenericObject> tabla) throws InterruptedException {
 		
@@ -62,16 +82,16 @@ public class CreadorTablas {
 					ArrayList<String> list = new ArrayList<>();
 					Nodos<ListaSimple<String>> nodo = lista.gethead();
 					boolean repetido = true;
-					if(nodo==null) {//revisar papus
+					if(nodo==null) {
 						
 						return;
 					}
 					while( !nodo.equals(lista.gethead())  || repetido == true) {
 						repetido = false;
-						System.out.println(nodo.get_objeto().getvalue(indice));
+//						System.out.println(nodo.get_objeto().getvalue(indice));
 						list.add(nodo.get_objeto().getvalue(indice));
 						nodo= nodo.get_next();
-						System.out.println(list);
+//						System.out.println(list);
 					}
 					list2.add(list);
 					
@@ -80,7 +100,11 @@ public class CreadorTablas {
 				CreadorTablas.metertablas(tabla , colums,CreadorTablas(list2));
 				
 	}
-
+/**
+ * Metodo especial que convierte listas simples a un objeto generico cada una
+ * @param list2 lista con listas dentro
+ * @return retorna la lista con objetos genericos
+ */
 	private static Collection<GenericObject> CreadorTablas(List<ArrayList<String>> list2) {
 		Collection<GenericObject> lista = new ArrayList<>();
 		int indicesuperior = 0 ;
@@ -98,7 +122,13 @@ public class CreadorTablas {
 		
 	}
 
-	@SuppressWarnings("unchecked")
+/**
+ * Crea las columnas segun el objeto que se esta poniendo
+ * @param tabla tabla a la cual se le pondran los atributos
+ * @param colums lista columnas con string de las columnas
+ * @param collection lista de generic objects
+ * @throws InterruptedException
+ */
 	private static void metertablas(TableView<GenericObject> tabla, List<String> colums, Collection<GenericObject> collection) throws InterruptedException {
 		final ObservableList<GenericObject> details = FXCollections.observableArrayList(collection);
 		int indice=0;
@@ -120,6 +150,12 @@ public class CreadorTablas {
        
 	}
 	@SuppressWarnings("unchecked")
+	/**
+	 * Metodo para la creacion de una tabla vacia;
+	 * @param tabla
+	 * @param colums
+	 * @throws InterruptedException
+	 */
 	private static void metertablasvacia(TableView<GenericObject> tabla, List<String> colums) throws InterruptedException {
 		
 		int indice=0;
@@ -139,7 +175,11 @@ public class CreadorTablas {
 	}
        
 	}
-
+/**
+ * Busca una lista cicular segun su id en el metadata
+ * @param nombre
+ * @return
+ */
 	@SuppressWarnings("unused")
 	public static ListaDobleCircular<ListaSimple<String>> buscarlista(String nombre) {
 		Nodos<ListaDobleCircular<ListaSimple<String>>> nodo = DataLists.galerias.gethead();
@@ -154,7 +194,11 @@ public class CreadorTablas {
 		}
 		return null;
 	}
-	
+	/**
+	 * Busca si un elemento esta en una lista simple
+	 * @param nombre
+	 * @return
+	 */
 	public static List<String> atributelist(String nombre){
 		
 		Nodos<Meta> nodo  =DataLists.metadata.gethead();
