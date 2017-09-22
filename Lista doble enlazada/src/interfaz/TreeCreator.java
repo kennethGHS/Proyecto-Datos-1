@@ -27,7 +27,7 @@ static public void CrearArbol(TreeItem<String> branch) {
  */
 
 private static void createBranch(TreeItem<String> branch, String name) {
-	TreeItem<String> nuevo = new TreeItem<String>(name+"galleries");
+	TreeItem<String> nuevo = new TreeItem<String>("Galeria de " + name);
 	branch.getChildren().add(nuevo);
 	TreeItem<String> child = new TreeItem<String>(name);
 	nuevo.getChildren().add(child);

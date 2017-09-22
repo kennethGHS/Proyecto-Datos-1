@@ -23,7 +23,7 @@ System.out.println("_____________");
 Interfaz2.Arrancar(args);
 JsonReader.escribemeta();
 ListstoJson.galleriesTojson();
-ListaDobleCircular.pruebas();
+
 }
 }
   

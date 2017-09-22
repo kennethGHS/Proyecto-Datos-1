@@ -57,7 +57,7 @@ private static boolean crearnuevaisntancia(ListaDobleCircular<ListaSimple<String
 	dialog.setTitle(hashMap.get("nombre"));
 	dialog.setHeaderText(hashMap.get("nombre"));
 	dialog.setContentText("Por favor introduce:"+hashMap.get("nombre"));
-	System.out.println(hashMap.get("Tipo"));
+//	System.out.println(hashMap.get("Tipo"));
 	Optional<String> result = dialog.showAndWait();
 	if (result.isPresent()){
 		if ( Validadoratributos.validadortipo(result.get(), hashMap.get("Tipo")) == false ) {
@@ -117,7 +117,8 @@ private static void editor(ListaSimple<String> objetos, ArrayList<HashMap<String
 		dialog.setTitle("Editor de atributos");
 		dialog.setHeaderText("Edita El atributo");
 		//dialog.setContentText();
-
+		//Anadir validaciones
+		//_____________________________________________________________//
 		// Traditional way to get the response value.
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){

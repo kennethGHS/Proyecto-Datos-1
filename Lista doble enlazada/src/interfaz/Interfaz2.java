@@ -84,7 +84,11 @@ public class Interfaz2 extends Application {
 	        }
 	      });
 		borderpane.setLeft(tree);
+//		padre.getChildren().clear();
+//		TreeCreator.CrearArbol(padre);
+
 		primaryStage=primaryStage2;
+		
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("LinkedDB");
 		primaryStage.setWidth(1000);
