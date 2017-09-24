@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import interfaz.CreaInstancias;
 import interfaz.Interfaz2;
 import javafx.application.Application;
 import jsonreader.DataLists;
@@ -21,6 +23,7 @@ JsonReader.Read();
 Instanciador.instanciador();
 System.out.println("_____________");
 Interfaz2.Arrancar(args);
+
 JsonReader.escribemeta();
 ListstoJson.galleriesTojson();
 

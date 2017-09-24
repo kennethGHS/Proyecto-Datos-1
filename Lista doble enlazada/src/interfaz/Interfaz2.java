@@ -64,8 +64,10 @@ public class Interfaz2 extends Application {
 		
 		Button boton = new Button("Eliminar");
 		SetActions.setdeleteButton(boton);
+		Button boton4 = new Button("+");
+		SetActions.setaddClassAction(boton4);
 		VBox right = new VBox();
-		right.getChildren().addAll(boton3,boton,boton2);
+		right.getChildren().addAll(boton3,boton,boton2,boton4);
 		
 		borderpane.setTop(right);
 		tree.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
@@ -86,7 +88,7 @@ public class Interfaz2 extends Application {
 		borderpane.setLeft(tree);
 //		padre.getChildren().clear();
 //		TreeCreator.CrearArbol(padre);
-
+		
 		primaryStage=primaryStage2;
 		
 		primaryStage.setResizable(false);

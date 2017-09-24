@@ -51,4 +51,8 @@ public static ArrayList<HashMap<String, String>> sacaListaMeta(String clase) {
 	}
 	return null;
 }
+public void setName(String nuevo) {
+	this.name= nuevo;
+}
+
 }

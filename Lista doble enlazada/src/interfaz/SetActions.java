@@ -89,4 +89,17 @@ public static void seteditbutton(Button boton) {
     });
 	
 }
+public static void setaddClassAction(Button boton) {
+	boton.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+        	try {
+        		CreaInstancias.crearClase();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+    });
+	//
+}
 }

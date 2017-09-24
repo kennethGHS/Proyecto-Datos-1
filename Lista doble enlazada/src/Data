@@ -82,5 +82,50 @@
                 "nombre" : "der34"
             }
         ]
+    },
+    {
+        "name" : "Lucia",
+        "colums" : [
+            {
+                "generico" : "100",
+                "Tipo" : "Int",
+                "Origen" : "Curso",
+                "nombre" : "Rara",
+                "Forean" : "Estudiantes"
+            },
+            {
+                "generico" : "123",
+                "Tipo" : "Int",
+                "Origen" : "nota",
+                "nombre" : "NivelRareza",
+                "Forean" : "Estudiantes"
+            }
+        ]
+    },
+    {
+        "name" : "Kenneth",
+        "colums" : [
+            {
+                "generico" : "",
+                "Tipo" : "String",
+                "Origen" : "",
+                "nombre" : "Grandeza",
+                "Forean" : ""
+            },
+            {
+                "generico" : "Computadores",
+                "Tipo" : "String",
+                "Origen" : "",
+                "nombre" : "Estudios",
+                "Forean" : ""
+            },
+            {
+                "generico" : "0",
+                "Tipo" : "Int",
+                "Origen" : "",
+                "nombre" : "Novias",
+                "Forean" : ""
+            }
+        ]
     }
 ]
