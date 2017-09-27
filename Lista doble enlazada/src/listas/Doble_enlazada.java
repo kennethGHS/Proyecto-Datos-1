@@ -56,5 +56,31 @@ public class Doble_enlazada<T> {
 		nodo.set_objeto(dato);
 		}
 	}
-
+public void eliminar(int indice) {
+	Nodos<T> nodo = this.head;
+	while(indice!=0) {
+		nodo = nodo.next;
+		indice--;
+	}
+	if(nodo.previo==null|| nodo.next == null) {
+		this.tail = null;
+		this.head=null;
+		return;
+	}
+	if(nodo==this.head) {
+		this.head = nodo.next;
+		this.head.set_previo(null);
+		return;
+	}
+	if(nodo==this.tail) {
+		this.tail= nodo.previo;
+		this.tail.set_next(null);
+		return;
+	}
+	else{
+		nodo.previo.set_next(nodo.next);
+		nodo.next.set_previo(nodo.previo);
+		return;
+	}
+}
 }

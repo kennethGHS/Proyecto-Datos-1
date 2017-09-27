@@ -117,5 +117,7 @@ public class ListaDobleCircular<T> {
 			return;
 		}
 		}
-
+public void deleteAll() {
+	this.head= null;
+}
 }

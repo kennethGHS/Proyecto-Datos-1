@@ -3,6 +3,8 @@ package jsonreader;
 import java.util.List;
 
 import listas.Doble_enlazada;
+import listas.ListaDobleCircular;
+import listas.ListaSimple;
 import listas.Nodos;
 
 /**
@@ -78,5 +80,27 @@ public class searcherLists {
 			return false;
 		}
 	}
-	
+	static public ListaDobleCircular<ListaSimple<String>> optieneCircular(String Nombre){
+		Nodos<ListaDobleCircular<ListaSimple<String>>> nodo = DataLists.galerias.gethead();
+		while(nodo!= null) {
+			if(nodo.objeto.id.equals(Nombre)) {
+				return nodo.get_objeto();
+			}
+			nodo = nodo.next;
+		}
+		return null;
+	}
+	static public int optieneCircular2(String Nombre){
+		Nodos<ListaDobleCircular<ListaSimple<String>>> nodo = DataLists.galerias.gethead();
+		int indice = 0;
+		while(nodo!= null) {
+			if(nodo.objeto.id.equals(Nombre)) {
+				
+				return indice;
+			}
+			indice++;
+			nodo = nodo.next;
+		}
+		return 4;
+	}
 }

@@ -12,6 +12,8 @@ import javafx.scene.control.TextInputDialog;
 import jsonreader.DataLists;
 import jsonreader.Meta;
 import jsonreader.searcherLists;
+import listas.ListaDobleCircular;
+import listas.ListaSimple;
 
 /**
  * Crea nuevas clases
@@ -35,6 +37,9 @@ public class CreaInstancias {
 		   boolean creacion = CreaInstancias.crearAtributos(nuevaclase);
 		 if(creacion) {
 			 DataLists.metadata.append(nuevaclase);
+			 DataLists.galerias.append(new ListaDobleCircular<ListaSimple<String>>(nuevaclase.name));
+			 TreeCreator.createBranch(Interfaz2.padre, nuevaclase.name);;
+			 SetActions.SetTree();
 		 }
 		 else {
 			 Alert alert = new Alert(AlertType.ERROR);

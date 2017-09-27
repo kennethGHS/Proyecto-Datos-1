@@ -1,5 +1,7 @@
 package interfaz;
 
+import java.util.List;
+
 import javafx.scene.control.TreeItem;
 
 import jsonreader.Meta;
@@ -13,6 +15,8 @@ import jsonreader.DataLists;
  */
 public class TreeCreator {
 static public void CrearArbol(TreeItem<String> branch) {
+	
+	branch.getChildren().clear();
 	Doble_enlazada<Meta> metadata = DataLists.metadata;
 	Nodos<Meta> nodo = metadata.gethead();
 	while(nodo!=null) {
@@ -26,11 +30,23 @@ static public void CrearArbol(TreeItem<String> branch) {
  * @param name
  */
 
-private static void createBranch(TreeItem<String> branch, String name) {
+public static void createBranch(TreeItem<String> branch, String name) {
 	TreeItem<String> nuevo = new TreeItem<String>("Galeria de " + name);
 	branch.getChildren().add(nuevo);
 	TreeItem<String> child = new TreeItem<String>(name);
+	
 	nuevo.getChildren().add(child);
 	
+}
+public static void eliminatebranch() {
+	List<TreeItem<String>> a =Interfaz2.padre.getChildren();
+	int indice = 0;
+	while (indice<a.size()) {
+		if(a.get(indice).getValue().equals("Galeria de " +Interfaz2.actual)) {
+			a.remove(a.get(indice));
+			return;
+		}
+		indice++;
+	}
 }
 }

@@ -42,6 +42,7 @@ public static void nuevoObjeto() throws InterruptedException {
 	galeria.append(lista);
 	CreadorTablas.creartabla(claseactual);
 }
+
 /**
  * Menu para crear una nueva instancia de un objeto en especifico desde la interfaz
  * @param galeria
@@ -54,12 +55,17 @@ private static boolean crearnuevaisntancia(ListaDobleCircular<ListaSimple<String
 	boolean repetido = true;
 	while(repetido) {
 	TextInputDialog dialog = new TextInputDialog();
+	dialog.setGraphic(SetActions.ListaImages.get(0));
 	dialog.setTitle(hashMap.get("nombre"));
 	dialog.setHeaderText(hashMap.get("nombre"));
 	dialog.setContentText("Por favor introduce:"+hashMap.get("nombre"));
 //	System.out.println(hashMap.get("Tipo"));
 	Optional<String> result = dialog.showAndWait();
 	if (result.isPresent()){
+		if(result.get().equals("")) {
+			lista.append(hashMap.get("generico"));
+		    repetido = false;
+		    return true;}
 		if ( Validadoratributos.validadortipo(result.get(), hashMap.get("Tipo")) == false ) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error al insertar dato");
@@ -67,9 +73,13 @@ private static boolean crearnuevaisntancia(ListaDobleCircular<ListaSimple<String
 			alert.showAndWait(); 
 		}
 		else {
-	    lista.append(result.get());
-	    repetido = false;
-	    return true;}
+				lista.append(result.get());
+			    repetido = false;
+			    return true;
+			
+			}
+		
+	    
 	}
 	else{return false; }
 	}
@@ -114,12 +124,15 @@ private static void editor(ListaSimple<String> objetos, ArrayList<HashMap<String
 	while (indice!= atributos.size() ) {
 		try {
 		TextInputDialog dialog = new TextInputDialog(objetos.getvalue(indice));
+		dialog.setGraphic(SetActions.ListaImages.get(6));
+		//stage.getIcons().add(new Image("/path/to/javaicon.png"));
+		//Imagen a dialosgos dialog.initOwner(window);
+		dialog.initOwner(Interfaz2.primaryStage);
 		dialog.setTitle("Editor de atributos");
 		dialog.setHeaderText("Edita El atributo");
-		//dialog.setContentText();
+
 		//Anadir validaciones
-		//_____________________________________________________________//
-		// Traditional way to get the response value.
+
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
 		    if(Validadoratributos.validadortipo(result.get(), atributos.get(indice).get("Tipo")) == false) {

@@ -58,6 +58,9 @@ public class ListstoJson {
 		 Nodos<ListaSimple<String>> nodo = objeto.gethead();
 		 Nodos<ListaSimple<String>> nodo2 = objeto.gethead();
 		 int condicion = 0;
+		 if(nodo==null) {
+			 ListstoJson.filewriter(id,myObjects);
+		 }
 		 if (nodo!= null) {
 		 while(nodo!=nodo2 || condicion==0 ) {
 			 if (condicion ==0) {

@@ -13,11 +13,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import listas.GenericObject;
@@ -29,24 +32,27 @@ import listas.Nodos;
  *
  */
 public class Interfaz2 extends Application {
+	public static String actual;
 	public static TreeItem<String> padre = new TreeItem<>("Galleries");
 	public static Scene scene;
-	private static Stage primaryStage;
+	public static MenuBar menuBar ;
+	public static Stage primaryStage;
 	public  static Nodos<TableView<GenericObject>> nodo = new Nodos();
-	
+	public static TreeView<String> tree;
 	@SuppressWarnings("unchecked")
 	@Override
 	/**
 	 * Metodo que inicializa la interfaz
 	 */
 	public void start(Stage primaryStage2) throws InterruptedException {
-		
+		SetActions a = new SetActions();
+		a.setimages();
 		nodo.objeto = new TableView<GenericObject>();//genera una tabla que contiene objeto generico
 		BorderPane borderpane = new BorderPane(); // panel
 		scene = new Scene(borderpane, 300, 200);
 		borderpane.setCenter(nodo.objeto);//pone la tabla en el centro
 		TreeCreator.CrearArbol(padre);
-		TreeView<String> tree = new TreeView<>(padre);// inicia el treeview
+		 tree = new TreeView<>(padre);// inicia el treeview
 //		TextInputDialog dialog = new TextInputDialog("walter");
 //		dialog.setTitle("Text Input Dialog");
 //		dialog.setHeaderText("Look, a Text Input Dialog");
@@ -57,46 +63,35 @@ public class Interfaz2 extends Application {
 //		if (result.isPresent()){
 //		    System.out.println("Your name: " + result.get());
 //		}
-		Button boton2 = new Button("Editar");
-		SetActions.seteditbutton(boton2);
-		Button boton3 = new Button("Anadir");
-		SetActions.setaddButton(boton3);
-		
-		Button boton = new Button("Eliminar");
-		SetActions.setdeleteButton(boton);
-		Button boton4 = new Button("+");
-		SetActions.setaddClassAction(boton4);
-		VBox right = new VBox();
-		right.getChildren().addAll(boton3,boton,boton2,boton4);
-		
+		 
+		 SetActions accionador = new SetActions();
+		Button boton2 = new Button();
+		accionador.seteditbutton(boton2);
+		Button boton3 = new Button();
+		accionador.setaddButton(boton3);
+		Button boton = new Button();
+		accionador.setdeleteButton(boton);
+		Button boton4 = new Button();
+		accionador.setaddClassAction(boton4);
+		Button boton5 = new Button();
+		accionador.commitbutton(boton5);
+		HBox right = new HBox();
+		right.getChildren().addAll(boton3,boton,boton2,boton4,boton5);
 		borderpane.setTop(right);
-		tree.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
-	        @Override
-	        public void changed(@SuppressWarnings("rawtypes") ObservableValue observable, Object oldValue,
-	                Object newValue) {
-
-	            TreeItem<String> selectedItem = (TreeItem<String>) newValue;
-	          try {
-				CreadorTablas.creartabladesdeArbol(selectedItem.getValue());
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	           // selectedItem.getValue()
-	        }
-	      });
+		SetActions.SetTree();
 		borderpane.setLeft(tree);
 //		padre.getChildren().clear();
 //		TreeCreator.CrearArbol(padre);
 		
 		primaryStage=primaryStage2;
-		
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("WindowIcon.png")));
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("LinkedDB");
 		primaryStage.setWidth(1000);
 		primaryStage.setHeight(900);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
 	}
 
 

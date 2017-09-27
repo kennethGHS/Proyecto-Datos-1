@@ -23,9 +23,8 @@ JsonReader.Read();
 Instanciador.instanciador();
 System.out.println("_____________");
 Interfaz2.Arrancar(args);
-
 JsonReader.escribemeta();
-ListstoJson.galleriesTojson();
+//ListstoJson.galleriesTojson();
 
 }
 }
