@@ -37,9 +37,8 @@ public class Interfaz2 extends Application {
 	public static Scene scene;
 	public static MenuBar menuBar ;
 	public static Stage primaryStage;
-	public  static Nodos<TableView<GenericObject>> nodo = new Nodos();
+	public  static Nodos<TableView<GenericObject>> nodo = new Nodos<>();
 	public static TreeView<String> tree;
-	@SuppressWarnings("unchecked")
 	@Override
 	/**
 	 * Metodo que inicializa la interfaz
