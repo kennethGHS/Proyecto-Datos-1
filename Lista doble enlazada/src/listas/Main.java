@@ -10,6 +10,7 @@ import java.util.List;
 import interfaz.CreaInstancias;
 import interfaz.Interfaz2;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import jsonreader.DataLists;
 import jsonreader.Instanciador;
 import jsonreader.JsonReader;
@@ -25,7 +26,9 @@ System.out.println("_____________");
 Interfaz2.Arrancar(args);
 JsonReader.escribemeta();
 //ListstoJson.galleriesTojson();
+SimpleStringProperty a = new SimpleStringProperty("Holas");
 
+System.out.println(a.get().equals("Holas"));
 }
 }
   

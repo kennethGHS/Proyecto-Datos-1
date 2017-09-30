@@ -47,6 +47,7 @@ public class Interfaz2 extends Application {
 		SetActions a = new SetActions();
 		a.setimages();
 		nodo.objeto = new TableView<GenericObject>();//genera una tabla que contiene objeto generico
+		nodo.objeto.setContextMenu(Contextmenus.contextoTabla());
 		BorderPane borderpane = new BorderPane(); // panel
 		scene = new Scene(borderpane, 300, 200);
 		borderpane.setCenter(nodo.objeto);//pone la tabla en el centro
@@ -62,7 +63,6 @@ public class Interfaz2 extends Application {
 //		if (result.isPresent()){
 //		    System.out.println("Your name: " + result.get());
 //		}
-		 
 		 SetActions accionador = new SetActions();
 		Button boton2 = new Button();
 		accionador.seteditbutton(boton2);
@@ -74,8 +74,10 @@ public class Interfaz2 extends Application {
 		accionador.setaddClassAction(boton4);
 		Button boton5 = new Button();
 		accionador.commitbutton(boton5);
+		Button boton6 = new Button();
+		accionador.search(boton6);
 		HBox right = new HBox();
-		right.getChildren().addAll(boton3,boton,boton2,boton4,boton5);
+		right.getChildren().addAll(boton3,boton,boton2,boton4,boton5,boton6);
 		borderpane.setTop(right);
 		SetActions.SetTree();
 		borderpane.setLeft(tree);

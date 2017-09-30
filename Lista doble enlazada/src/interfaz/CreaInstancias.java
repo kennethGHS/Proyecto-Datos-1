@@ -1,11 +1,16 @@
 package interfaz;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
@@ -33,10 +38,23 @@ public class CreaInstancias {
 		// Traditional way to get the response value.
 	Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
+			if(searcherLists.buscaClase(result.get())) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(Interfaz2.primaryStage);
+				alert.setTitle("Error al insertar dato");
+				alert.setHeaderText( "No se pueden tener dos clases con el mismo nombre" );
+				alert.showAndWait(); 
+				 crearClase();
+				 return;
+			}
 		    nuevaclase.setName(result.get());
 		   boolean creacion = CreaInstancias.crearAtributos(nuevaclase);
 		 if(creacion) {
 			 DataLists.metadata.append(nuevaclase);
+			 ObjectMapper mapper = new ObjectMapper();
+		    	mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		    	
+		    	mapper.writeValue(new File("src\\"+nuevaclase.name), new ArrayList<>());
 			 DataLists.galerias.append(new ListaDobleCircular<ListaSimple<String>>(nuevaclase.name));
 			 TreeCreator.createBranch(Interfaz2.padre, nuevaclase.name);;
 			 SetActions.SetTree();
@@ -71,7 +89,7 @@ public class CreaInstancias {
 	 //LOOP INFINITO
 		while (termino) {
 			HashMap<String,String> hashmap = new HashMap<>();
-			condicion = CreaInstancias.setnombre( hashmap);
+			condicion = CreaInstancias.setnombre( hashmap,nuevaclase.name,atributos);
 			if (condicion) {
 			condicion = CreaInstancias.settipe(hashmap);	
 		}
@@ -83,6 +101,9 @@ public class CreaInstancias {
 			}
 			if(condicion ) {
 				condicion = CreaInstancias.setgeneric(hashmap);
+			}
+			if(condicion) {
+				condicion = CreaInstancias.setUnico(hashmap);
 			}
 			if(condicion) {
 				atributos.add(hashmap);
@@ -98,6 +119,31 @@ public class CreaInstancias {
 		return false;
 		
 	}
+	private static boolean setUnico(HashMap<String, String> hashmap) {
+try {
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("Unico");
+	alert.setHeaderText("Es unico?");
+	alert.setContentText("");
+	ButtonType buttonTypeOne = new ButtonType("Si");
+	ButtonType buttonTypeTwo = new ButtonType("No");
+	alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == buttonTypeOne){
+		hashmap.put("primaria", "si");
+	    return true;
+	} else if (result.get() == buttonTypeTwo) {
+		hashmap.put("primaria", "no");
+	    return true;
+	}
+	else {
+		return false;
+	}
+	
+}catch(Exception e) {
+	return false;
+}
+}
 	private static boolean setgeneric(HashMap<String, String> hashmap) {
 		boolean atributo = true;
 		while (atributo) {
@@ -144,11 +190,18 @@ private static boolean setForeanAtribute(String clase, HashMap<String, String> h
 		dialog.setTitle("Atributo pertenece");
 		dialog.setHeaderText("Inserta el atributo al que pertenece");
 		dialog.setContentText("");
-
 		// Traditional way to get the response value.
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
 			if(searcherLists.validaAtributo(result.get(), clase)) {
+				if(!CreaInstancias.validadortipo(result.get(),clase,hashmap.get("Tipo"))) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error al insertar dato");
+					alert.setHeaderText( "El atributo debe de ser del mismo tipo que la llave foranea su tipo actual es "+ hashmap.get("Tipo") + " cambialo" );
+					alert.showAndWait(); 
+					CreaInstancias.settipe(hashmap);
+					return setForeanAtribute( clase,hashmap);
+				}
 		    hashmap.put("Origen", result.get());
 		    return true;}
 			else {
@@ -165,6 +218,7 @@ private static boolean setForeanAtribute(String clase, HashMap<String, String> h
 }
 	
 }
+
 /**
  * Define el atributo al que pertenece el foraneo
  * @param hashmap
@@ -200,12 +254,11 @@ private static boolean setForean(HashMap<String, String> hashmap) {
 private static boolean settipe(HashMap<String, String> hashmap) {
 	try {
 	List<String> choices = new ArrayList<>();
-	choices.add("Int");
 	choices.add("String");
 	choices.add("Fecha");
 	choices.add("Hora");
 	choices.add("Float");
-	ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
+	ChoiceDialog<String> dialog = new ChoiceDialog<>("Int", choices);
 	dialog.setTitle("Tipo del atributo");
 	dialog.setHeaderText("");
 	dialog.setContentText("Escoge el tipo:");
@@ -223,9 +276,11 @@ private static boolean settipe(HashMap<String, String> hashmap) {
 /**
  * Setea el nombre del atributo
  * @param hashmap
+ * @param name 
+ * @param atributos 
  * @return
  */
-private static boolean setnombre(HashMap<String, String> hashmap) {
+private static boolean setnombre(HashMap<String, String> hashmap, String name, List<HashMap<String, String>> atributos) {
 	try {
 		TextInputDialog dialog = new TextInputDialog("");
 		dialog.setTitle("Nombre atributo");
@@ -233,6 +288,30 @@ private static boolean setnombre(HashMap<String, String> hashmap) {
 		dialog.setContentText("");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
+			if(CreaInstancias.Sacanombres(atributos).contains(result.get())){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(Interfaz2.primaryStage);
+				alert.setTitle("Error al insertar dato");
+				alert.setHeaderText( "No se pueden tener dos atributos de igual nombre" );
+				alert.showAndWait(); 
+				return setnombre(hashmap,name, atributos);
+			}
+			if(name.equals(result.get())) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(Interfaz2.primaryStage);
+				alert.setTitle("Error al insertar dato");
+				alert.setHeaderText( "No se puede tener un atributo con el mismo nombre de la clase" );
+				alert.showAndWait(); 
+				return setnombre(hashmap,name, atributos);
+			}
+			if(result.get().equals("")) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(Interfaz2.primaryStage);
+				alert.setTitle("Error al insertar dato");
+				alert.setHeaderText( "Este espacio es obligatorio" );
+				alert.showAndWait(); 
+				return setnombre(hashmap,name, atributos);
+			}
 		    hashmap.put("nombre", result.get());
 		    return true;
 		}
@@ -244,4 +323,35 @@ private static boolean setnombre(HashMap<String, String> hashmap) {
 		return false;
 	}
 }
+//Saca una lista con nombres de atributos
+private static List<String> Sacanombres(List<HashMap<String, String>> atributos) {
+	int indice = 0;
+	List<String> a = new ArrayList<>();
+	while(indice<atributos.size()) {
+		a.add(atributos.get(indice).get("nombre"));
+		indice++;
+		
+	}
+	return a;
+	
+}
+private static boolean validadortipo(String atributo, String clase, String tipo) {
+	ArrayList<HashMap<String, String>> mapas = searcherLists.buscaClaseHashmaps(clase);
+	int indice = 0;
+	while(indice<mapas.size()) {
+		if(mapas.get(indice).get("nombre").equals(atributo)) {
+			if(mapas.get(indice).get("Tipo").equals(tipo)) {
+				return true;
+			}
+			else {
+				
+				return false;
+				}
+		}
+		indice++;
+	}
+	return false;
+	
+}
+
 }

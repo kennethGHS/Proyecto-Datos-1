@@ -1,5 +1,8 @@
 package listas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.property.SimpleStringProperty;
 /**
  * Objeto generico para columnas
@@ -252,5 +255,86 @@ public SimpleStringProperty getAtributo11() {
 }
 public void setAtributo11(SimpleStringProperty atributo11) {
 	this.atributo11 = atributo11;
+}
+public SimpleStringProperty SacaAtributos(int indice) {
+	if (indice == 0) {
+		return this.atributo ;
+	}
+if (indice == 1) {
+	return this.atributo1 ;
+	}
+if (indice == 2) {
+	return  this.atributo2 ;
+}
+if (indice == 3) {
+	return this.atributo3;
+}
+if (indice == 4) {
+	return  this.atributo4 ;
+}
+if (indice == 5) {
+	return this.atributo5 ;
+}
+if (indice == 6) {
+	return this.atributo6 ;
+}
+if (indice == 7) {
+	return this.atributo7 ;
+}
+if (indice == 8) {
+	return this.atributo8 ;
+}
+if (indice == 9) {
+	return this.atributo9 ;
+}
+if (indice == 10) {
+	return this.atributo10 ;
+}
+if (indice == 11) {
+	return this.atributo11 ;
+}
+if (indice == 12) {
+	return  this.atributo12;
+}
+if (indice == 13) {
+	return  this.atributo13 ;
+}
+if (indice == 14) {
+	return this.atributo14;
+}
+if (indice == 15) {
+	return this.atributo15 ;
+}
+if (indice == 16) {
+	return this.atributo16 ;
+}
+if (indice == 17) {
+	return this.atributo17 ;
+}
+if (indice == 18) {
+	return this.atributo18 ;
+}
+if (indice == 19) {
+	return this.atributo19 ;
+}
+if (indice == 20) {
+	return this.atributo20 ;
+}
+if (indice == 21) {
+	return this.atributo21 ;
+}
+return null;
+}
+public List<String> toList() {
+	int indice = 0;
+	List<String> lista = new ArrayList<>();
+	SimpleStringProperty clase = this.SacaAtributos(indice);
+	lista.add(""+this.id);
+	while(clase!=null) {
+		lista.add(clase.get());
+		clase = this.SacaAtributos(indice+1);
+		indice++;
+	}
+	return lista;
 }
 }

@@ -22,6 +22,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.control.Alert.AlertType;
 import jsonreader.ListstoJson;
+import jsonreader.searcherLists;
 /**
  * Clase que genera las acciones de los botones
  * @author kenneth
@@ -67,6 +68,10 @@ public void setimages() {
 	
 	Image image11 = new Image(getClass().getResourceAsStream("Save.png"));//10
 	ListaImages.add(new ImageView(image11));
+	Image image12 = new Image(getClass().getResourceAsStream("Iconorefresh.png"));//11
+	ListaImages.add(new ImageView(image12));
+	Image image13 = new Image(getClass().getResourceAsStream("TableIcon.png"));//12
+	ListaImages.add(new ImageView(image13));
 }
 public  void setaddButton(Button boton) {
 	Image image = new Image(getClass().getResourceAsStream("Add.png"));
@@ -105,8 +110,11 @@ public  void setdeleteButton(Button boton) {
 			Optional<String> result = dialog.showAndWait();
 			if (result.isPresent()){
 				try {
+					if(searcherLists.optieneCircular(ManejaObjetos.claseactual).gethead()==null){
+		System.out.println("Nada");
+	}else {
 			    ManejaObjetos.eliminarobjetos(Integer.parseInt(result.get()));
-			    
+	}
 			    }
 				catch(Exception e) {
 					Alert alert = new Alert(AlertType.ERROR);
@@ -139,8 +147,11 @@ public  void seteditbutton(Button boton) {
 			Optional<String> result = dialog.showAndWait();
 			if (result.isPresent()){
 				try {
+					if(searcherLists.optieneCircular(ManejaObjetos.claseactual).gethead()==null){
+						System.out.println("Nada");
+					}else {
 			    ManejaObjetos.editarobjetos(Integer.parseInt(result.get()));
-			    
+					}
 			    }
 				catch(Exception e) {
 					Alert alert = new Alert(AlertType.ERROR);
@@ -185,11 +196,10 @@ public static void SetTree() {
     			CreadorTablas.creartabladesdeArbol(selectedItem.getValue());
     			
     		} catch (Exception e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
+    			SetTree();
     		}}
             catch(Exception e) {
-            	Interfaz2.actual = "";
+            	SetTree();
             }
           
            variable.setContextMenu(Contextmenus.bookContext());
@@ -214,5 +224,31 @@ public  void commitbutton(Button boton) {
         }
     });
 	
+}
+public void search(Button boton6) {
+	Image image = new Image(getClass().getResourceAsStream("SearchIcon.png"));
+	boton6.setStyle("-fx-focus-color: transparent;");
+	boton6.setGraphic(new ImageView(image));
+	boton6.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+        	try {
+        		TextInputDialog dialog = new TextInputDialog("");
+        		
+        		dialog.initOwner(Interfaz2.primaryStage);
+        		dialog.setTitle("Introduce un atributo");
+        		dialog.setHeaderText("Introduce atributo a buscar");
+        		Optional<String> result = dialog.showAndWait();
+        		if(result.isPresent()) {
+        			TableSearch.buscarLista(result.get());
+        		}
+        		else {
+        			
+        		}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+    });
 }
 }

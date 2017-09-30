@@ -62,12 +62,13 @@ public void eliminar(int indice) {
 		nodo = nodo.next;
 		indice--;
 	}
-	if(nodo.previo==null|| nodo.next == null) {
-		this.tail = null;
-		this.head=null;
-		return;
-	}
+
 	if(nodo==this.head) {
+		if(nodo.previo==null && nodo.next == null) {
+			this.tail = null;
+			this.head=null;
+			return;
+		}
 		this.head = nodo.next;
 		this.head.set_previo(null);
 		return;

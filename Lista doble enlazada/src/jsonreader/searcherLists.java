@@ -1,5 +1,7 @@
 package jsonreader;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import listas.Doble_enlazada;
@@ -28,6 +30,17 @@ public class searcherLists {
 			clases=clases.next;
 		}
 		return false;
+	}
+	static public ArrayList<HashMap<String, String>> buscaClaseHashmaps(String clase) {
+		Doble_enlazada<Meta> meta = DataLists.metadata;
+		Nodos<Meta> clases = meta.gethead();
+		while(clases!=null) {
+			if(clases.get_objeto().name.equals(clase)) {
+				return clases.objeto.colums;
+			}
+			clases=clases.next;
+		}
+		return null;
 	}
 	/**
 	 * Busca el int al que peretenece un atributo, es usado para ver si los atributos existen

@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -28,17 +29,22 @@ public static void clear() throws InterruptedException {
  * @throws IOException
  */
 public static void eliminar() throws JsonGenerationException, JsonMappingException, IOException{
+
 	System.out.println("LOL");
 	int nodo = searcherLists.optieneCircular2(Interfaz2.actual);
 	DataLists.galerias.eliminar(nodo);
 	Doble_enlazada<Meta> metadata = DataLists.metadata;
 	Nodos<Meta> nodos= metadata.gethead();
 	int indice = 0;
+
 	while(!nodos.get_objeto().name.equals(Interfaz2.actual)) {
 		nodos = nodos.next;
 		indice++;
 	}
-	System.out.println(indice);
+	System.out.println(nodos.get_objeto().name);
+File file = new File("src\\"+Interfaz2.actual);
+file.delete();
+System.out.println("ERROR FATAL");
 metadata.eliminar(indice);
 JsonReader.escribemeta();
 TreeCreator.eliminatebranch();

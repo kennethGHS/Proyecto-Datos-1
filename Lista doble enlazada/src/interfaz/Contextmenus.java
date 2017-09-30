@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.WindowEvent;
 import jsonreader.searcherLists;
+import listas.GenericObject;
 
 public class Contextmenus {
 public static ContextMenu bookContext() {
@@ -25,43 +26,9 @@ if (searcherLists.buscaClase(Interfaz2.actual)) {
 	return x.itemgallery();
 }
 else {
-	return x.justItem();
+	return null;
 }
 }
-/**
- * Para items que no son menu ni clases
- * @return
- */
-private ContextMenu justItem() {
-	final ContextMenu contextMenu = new ContextMenu();
-	contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
-	    public void handle(WindowEvent e) {
-	        System.out.println("showing");
-	    }
-	});
-	contextMenu.setOnShown(new EventHandler<WindowEvent>() {
-	    public void handle(WindowEvent e) {
-	        System.out.println("shown");
-	    }
-	});
-
-	MenuItem item1 = new MenuItem("Anadir objeto");
-	item1.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent e) {
-	        System.out.println("About");
-	    }
-	});
-	MenuItem item2 = new MenuItem("Eliminar objeto");
-	item2.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent e) {
-	        System.out.println("Preferences");
-	    }
-	});
-	contextMenu.getItems().addAll(item1, item2);
-	return contextMenu;
-}
-
-
 private ContextMenu itemgallery() {
 	final ContextMenu contextMenu = new ContextMenu();
 	contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
@@ -157,7 +124,8 @@ private ContextMenu itemgallery() {
 	item4.setOnAction(new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
 	        try {
-				ManejaClases.clear();
+	        	if(ManejaObjetos.foreanUsed()) {
+				ManejaClases.clear();}
 			} catch (InterruptedException e1) {
 				
 				e1.printStackTrace();
@@ -171,7 +139,11 @@ private ContextMenu itemgallery() {
 	item5.setOnAction(new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent e) {
 	        try {
+	        	if(!ManejaObjetos.foreanUsed()) {
+	        		return;
+	        	}
 				ManejaClases.eliminar();
+				Interfaz2.nodo.get_objeto().getColumns().clear();
 			} catch (IOException e1) {
 				
 				e1.printStackTrace();
@@ -181,7 +153,10 @@ private ContextMenu itemgallery() {
 	contextMenu.getItems().addAll(item1, item2,item3,item4,item5);
 	return contextMenu;
 }
-
+/**
+ * Context para galerias
+ * @return
+ */
 private ContextMenu contextGallerie() {
 	final ContextMenu contextMenu = new ContextMenu();
 	contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
@@ -202,13 +177,62 @@ private ContextMenu contextGallerie() {
 	        CreaInstancias.crearClase();
 	    }
 	});
-	MenuItem item2 = new MenuItem("Eliminar Clase");
-	item2.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent e) {
-	        System.out.println("Working progress");
+	contextMenu.getItems().addAll(item1);
+	return contextMenu;
+}
+/**
+ * Context de la tabla GenericObject w = nodo.get_objeto().getSelectionModel().getSelectedItem();
+ */
+@SuppressWarnings("unused")
+public static ContextMenu contextoTabla() {
+	final ContextMenu contextMenu = new ContextMenu();
+	contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
+	    public void handle(WindowEvent e) {
+	        System.out.println("showing");
 	    }
 	});
-	contextMenu.getItems().addAll(item1, item2);
+	contextMenu.setOnShown(new EventHandler<WindowEvent>() {
+	    public void handle(WindowEvent e) {
+	        System.out.println("shown");
+	    }
+	});
+
+	MenuItem item1 = new MenuItem("Editar");
+	item1.setGraphic(SetActions.ListaImages.get(7));
+	item1.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {
+	    	try {
+	    	GenericObject w = Interfaz2.nodo.get_objeto().getSelectionModel().getSelectedItem();
+				ManejaObjetos.editarobjetos(w.getId());
+			} catch (Exception e1) {
+				
+			}
+	    }
+	});
+	MenuItem item2 = new MenuItem("Eliminar");
+	item2.setGraphic(SetActions.ListaImages.get(3));
+	item2.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {
+	    	try {
+	    		GenericObject w = Interfaz2.nodo.get_objeto().getSelectionModel().getSelectedItem();
+	    	ManejaObjetos.eliminarobjetos(w.getId());
+	    	}
+	    	catch(Exception e1) {}
+	        
+	    }
+	});
+	MenuItem item3 = new MenuItem("Refrescar");
+	item3.setGraphic(SetActions.ListaImages.get(11));
+	item3.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent e) {
+	    	try {
+	    		CreadorTablas.creartabla(Interfaz2.actual);
+	    	}
+	    	catch(Exception e1) {}
+	        
+	    }
+	});
+	contextMenu.getItems().addAll(item1, item2,item3);
 	return contextMenu;
 }
 }
